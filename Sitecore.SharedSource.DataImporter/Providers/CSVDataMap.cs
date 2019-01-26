@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Sitecore.Data.Fields;
+﻿using Sitecore.Data;
 using Sitecore.Data.Items;
-using Sitecore.Data;
-using System.Data;
-using System.Data.SqlClient;
-using System.Web;
-using Sitecore.SharedSource.DataImporter.Mappings.Fields;
-using System.IO;
-using System.Reflection;
-using System.Runtime.Remoting;
-using Microsoft.VisualBasic.FileIO;
 using Sitecore.Resources.Media;
-using Sitecore.Web.UI.WebControls;
 using Sitecore.SharedSource.DataImporter.Extensions;
 using Sitecore.SharedSource.DataImporter.Logger;
+using Sitecore.SharedSource.DataImporter.Mappings.Fields;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
-namespace Sitecore.SharedSource.DataImporter.Providers {
+namespace Sitecore.SharedSource.DataImporter.Providers
+{
     public class CSVDataMap : BaseDataMap {
 
 		#region Properties
@@ -99,20 +92,35 @@ namespace Sitecore.SharedSource.DataImporter.Providers {
 			return str.Split(new string[] { splitter }, StringSplitOptions.None).ToList();
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str">"col1","col2","col2"</param>
+        /// <param name="splitter">,</param>
+        /// <returns>new List<string> { "col1", "col2", "col3" }</string></returns>
         protected List<string> SplitColumns(string str, string splitter)
         {
-            TextFieldParser parser = new TextFieldParser(new StringReader(str))
-            {
-                HasFieldsEnclosedInQuotes = true,
-                Delimiters = new[] { splitter }
-            };
+            char delimitter = splitter[0];
+            List<string> stringValues = new List<string>();
+            stringValues = str.Split(delimitter).ToList<string>();
+            
 
-            var fields = parser.ReadFields();
-            parser.Close();
+            //TextFieldParser parser = new TextFieldParser(new StringReader(str))
+            //{
+            //    HasFieldsEnclosedInQuotes = true,
+            //    Delimiters = new[] { splitter }
+            //};
 
-            // string split options set to none so that empty columns are allowed
-            // useful for importing large csv files, so you don't have to check the content
-            return fields?.ToList() ?? new List<string>();
+            //var fields = parser.ReadFields();
+            //parser.Close();
+
+            //// string split options set to none so that empty columns are allowed
+            //// useful for importing large csv files, so you don't have to check the content
+            //return fields?.ToList() ?? new List<string>();
+
+
+
+            return stringValues;
         }
 
         protected string GetContentString(string contentPath)
