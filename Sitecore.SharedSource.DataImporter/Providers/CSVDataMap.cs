@@ -101,18 +101,27 @@ namespace Sitecore.SharedSource.DataImporter.Providers {
 
         protected List<string> SplitColumns(string str, string splitter)
         {
-            TextFieldParser parser = new TextFieldParser(new StringReader(str))
-            {
-                HasFieldsEnclosedInQuotes = true,
-                Delimiters = new[] { splitter }
-            };
+            char delimitter = splitter[0];
+            List<string> stringValues = new List<string>();
+            stringValues = str.Split(delimitter).ToList<string>();
+            
 
-            var fields = parser.ReadFields();
-            parser.Close();
+            //TextFieldParser parser = new TextFieldParser(new StringReader(str))
+            //{
+            //    HasFieldsEnclosedInQuotes = true,
+            //    Delimiters = new[] { splitter }
+            //};
 
-            // string split options set to none so that empty columns are allowed
-            // useful for importing large csv files, so you don't have to check the content
-            return fields?.ToList() ?? new List<string>();
+            //var fields = parser.ReadFields();
+            //parser.Close();
+
+            //// string split options set to none so that empty columns are allowed
+            //// useful for importing large csv files, so you don't have to check the content
+            //return fields?.ToList() ?? new List<string>();
+
+
+
+            return stringValues;
         }
 
         protected string GetContentString(string contentPath)
