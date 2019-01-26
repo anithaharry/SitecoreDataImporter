@@ -103,23 +103,6 @@ namespace Sitecore.SharedSource.DataImporter.Providers
             char delimitter = splitter[0];
             List<string> stringValues = new List<string>();
             stringValues = str.Split(delimitter).ToList<string>();
-            
-
-            //TextFieldParser parser = new TextFieldParser(new StringReader(str))
-            //{
-            //    HasFieldsEnclosedInQuotes = true,
-            //    Delimiters = new[] { splitter }
-            //};
-
-            //var fields = parser.ReadFields();
-            //parser.Close();
-
-            //// string split options set to none so that empty columns are allowed
-            //// useful for importing large csv files, so you don't have to check the content
-            //return fields?.ToList() ?? new List<string>();
-
-
-
             return stringValues;
         }
 
